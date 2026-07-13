@@ -197,9 +197,9 @@
 
   /* ================= VISÃO GERAL ================= */
   .grid12{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
-  .span2{grid-column:span 2}.span4{grid-column:span 4}.span6{grid-column:span 6}.span8{grid-column:span 8}
+  .span2{grid-column:span 2}.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}.span8{grid-column:span 8}
   @media (max-width:980px){
-    .span2{grid-column:span 6}.span6{grid-column:span 12}.span4{grid-column:span 12}.span8{grid-column:span 12}
+    .span2{grid-column:span 6}.span3{grid-column:span 6}.span6{grid-column:span 12}.span4{grid-column:span 12}.span8{grid-column:span 12}
   }
   .kpi{padding:18px 20px;display:flex;flex-direction:column;gap:6px;transition:border-color .12s var(--ease)}
   .kpi:hover{border-color:var(--hair-strong)}
@@ -381,7 +381,7 @@
   .toolbar input[type="search"]{flex:1;min-width:180px}
   .toolbar input[type="search"]::placeholder{color:var(--text-3)}
   .tbl-wrap{overflow-x:auto;border:1px solid var(--hair);border-radius:12px;background:var(--bg-1)}
-  table.posts{border-collapse:collapse;width:100%;min-width:940px;font-size:13px}
+  table.posts{border-collapse:collapse;width:100%;min-width:1120px;font-size:13px}
   table.posts th{
     font:600 11px/1.2 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);
     text-align:left;padding:11px 14px;white-space:nowrap;cursor:pointer;user-select:none;
@@ -437,7 +437,7 @@
   }
   .fld textarea{height:auto;min-height:58px;padding:9px 11px;resize:vertical}
   .fld input:focus-visible,.fld select:focus-visible,.fld textarea:focus-visible{outline:2px solid var(--focus-ring);outline-offset:0;border-color:transparent;box-shadow:var(--glow)}
-  .metrics-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+  .metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
   @media (max-width:560px){.metrics-grid{grid-template-columns:repeat(2,1fr)}}
   .eng-preview{margin-top:10px;font:500 12px/1.5 var(--mono);color:var(--text-3)}
   .eng-preview b{color:var(--text-1);font-variant-numeric:tabular-nums}
@@ -641,13 +641,16 @@
       </div>
     </fieldset>
     <fieldset>
-      <legend class="kicker"><b>04</b>Métricas — preencha ~48h após postar</legend>
+      <legend class="kicker"><b>04</b>Métricas — preencha ~48h após postar (Insights do IG)</legend>
       <div class="metrics-grid">
         <div class="fld"><label for="fViews">Views</label><input type="number" min="0" id="fViews"></div>
+        <div class="fld"><label for="fAlcance">Alcance</label><input type="number" min="0" id="fAlcance"></div>
         <div class="fld"><label for="fCurtidas">Curtidas</label><input type="number" min="0" id="fCurtidas"></div>
         <div class="fld"><label for="fComentarios">Coment.</label><input type="number" min="0" id="fComentarios"></div>
         <div class="fld"><label for="fCompart">Compart.</label><input type="number" min="0" id="fCompart"></div>
         <div class="fld"><label for="fSalvos">Salvos</label><input type="number" min="0" id="fSalvos"></div>
+        <div class="fld"><label for="fRetencao">Retenção %</label><input type="number" min="0" max="100" step="0.1" id="fRetencao"></div>
+        <div class="fld"><label for="fSkip">Skip rate %</label><input type="number" min="0" max="100" step="0.1" id="fSkip"></div>
       </div>
       <div class="eng-preview" id="engPreview"></div>
     </fieldset>
@@ -746,6 +749,18 @@
     return sum / it.views * 100;
   }
   function fmtEng(e){ return e==null ? '—' : e.toFixed(1).replace('.',',') + '%'; }
+  function fmtPct1(v){ return v==null ? '—' : (Math.round(v*10)/10).toFixed(1).replace('.',',') + '%'; }
+  function pctOrNull(v){
+    if(v==null || v==='') return null;
+    var n = parseFloat(String(v).replace(',','.'));
+    return (!isFinite(n) || n<0) ? null : Math.min(100, Math.round(n*10)/10);
+  }
+  function erAlcance(it){ // engajamento padrão 2026: interações ÷ alcance (cai pra views sem alcance)
+    var base = it.alcance || it.views;
+    if(!base) return null;
+    var sum = (it.curtidas||0)+(it.comentarios||0)+(it.compartilhamentos||0)+(it.salvamentos||0);
+    return sum / base * 100;
+  }
   function numOrNull(v){
     if(v==null || v==='') return null;
     var n = +v;
@@ -807,8 +822,9 @@
         status:'postado', formato:'Reel', pilar:'Análise de mercado',
         dataPrevista:'2026-07-08', dataPostagem:'2026-07-08',
         link:'', gancho:'', legenda:'', responsavel:'',
-        views:10000, curtidas:520, comentarios:48, compartilhamentos:35, salvamentos:27,
-        obs:'Linha de exemplo — o Engajamento % soma curtidas + comentários + compartilhamentos + salvos e divide por views.',
+        views:10000, alcance:8200, curtidas:520, comentarios:48, compartilhamentos:35, salvamentos:27,
+        retencao:62, skiprate:28,
+        obs:'Linha de exemplo — o Engajamento soma curtidas + comentários + compartilhamentos + salvos e divide pelo alcance (padrão 2026). Retenção e skip rate saem do Insights de cada Reel.',
         criadoEm:'2026-07-12' }
     ];
   }
@@ -952,19 +968,29 @@
     });
   }
 
-  /* ---------- visão geral ---------- */
+  /* ---------- visão geral: KPIs 2026 com metas ---------- */
   function renderTiles(){
     var now = todayISO(), curM = now.slice(0,7);
     var pm = new Date(); pm.setDate(1); pm.setMonth(pm.getMonth()-1);
     var prevM = pm.getFullYear()+'-'+String(pm.getMonth()+1).padStart(2,'0');
 
     var posted = state.items.filter(function(i){ return i.status==='postado'; });
-    var postedCur = posted.filter(function(i){ return monthKey(i.dataPostagem)===curM; });
-    var postedPrev = posted.filter(function(i){ return monthKey(i.dataPostagem)===prevM; });
-    var viewsCur = postedCur.reduce(function(a,i){ return a+(i.views||0); },0);
-    var viewsPrev = postedPrev.reduce(function(a,i){ return a+(i.views||0); },0);
-    var engAll = posted.map(engagement).filter(function(e){ return e!=null; });
-    var engAvg = engAll.length ? engAll.reduce(function(a,b){return a+b;},0)/engAll.length : null;
+    var cur = posted.filter(function(i){ return monthKey(i.dataPostagem)===curM; });
+    var prev = posted.filter(function(i){ return monthKey(i.dataPostagem)===prevM; });
+    function soma(arr, k){ return arr.reduce(function(a,i){ return a+(i[k]||0); },0); }
+    function media(arr, k){
+      var v = arr.map(function(i){ return i[k]; }).filter(function(x){ return x!=null; });
+      return v.length ? v.reduce(function(a,b){return a+b;},0)/v.length : null;
+    }
+
+    var viewsCur = soma(cur,'views'), viewsPrev = soma(prev,'views');
+    var alcCur = soma(cur,'alcance'), alcPrev = soma(prev,'alcance');
+    var interCur = soma(cur,'curtidas')+soma(cur,'comentarios')+soma(cur,'compartilhamentos')+soma(cur,'salvamentos');
+    var erMes = alcCur ? interCur/alcCur*100 : null;
+    var saveRate = alcCur ? soma(cur,'salvamentos')/alcCur*100 : null;
+    var shareRate = alcCur ? soma(cur,'compartilhamentos')/alcCur*100 : null;
+    var retMedia = media(cur,'retencao');
+    var skipMedia = media(cur,'skiprate');
     var inPipe = state.items.filter(function(i){ return i.status!=='postado' && i.status!=='descartado' && i.status!=='ideia'; }).length;
     var ideias = state.items.filter(function(i){ return i.status==='ideia'; }).length;
 
@@ -976,25 +1002,47 @@
       var txt = (up?'▲ +':'▼ ')+(pct ? d.toFixed(0)+'%' : d);
       return '<span class="delta '+(up?'up':'down')+'">'+txt+'</span>';
     }
+    function benchChip(v, alvo, menorMelhor){
+      if(v==null) return '';
+      var ok = menorMelhor ? v<=alvo : v>=alvo;
+      return '<span class="delta '+(ok?'up':'down')+'">'+(ok?'✓':'▼')+' meta '+(menorMelhor?'≤':'≥')+String(alvo).replace('.',',')+'%</span>';
+    }
+    function pctTick(v){ return '<span data-tick="'+v.toFixed(2)+'" data-fmt="pct">0</span>'; }
     function tile(cls, label, valueHtml, sub){
       return '<div class="panel kpi '+cls+'">'+
         '<div class="lab"><span class="livedot" aria-hidden="true"></span><span class="microlabel">'+label+'</span></div>'+
         '<div class="value">'+valueHtml+'</div>'+
         '<div class="sub">'+sub+'</div></div>';
     }
+    var semAlc = 'preencha o alcance nos posts';
     var html = '';
-    html += tile('hero span6','Views no mês',
+    html += tile('hero span4','Views no mês',
       '<span data-tick="'+viewsCur+'" data-fmt="compact">0</span>'+delta(viewsCur,viewsPrev,true),
-      'soma dos posts do mês · anterior: '+fmtCompact(viewsPrev));
+      'anterior: '+fmtCompact(viewsPrev));
+    html += tile('span2','Alcance no mês',
+      alcCur ? '<span data-tick="'+alcCur+'" data-fmt="compact">0</span>'+delta(alcCur,alcPrev,true) : '—',
+      alcCur ? 'contas alcançadas' : semAlc);
     html += tile('span2','Postados no mês',
-      '<span data-tick="'+postedCur.length+'" data-fmt="int">0</span>'+delta(postedCur.length,postedPrev.length,false),
-      'anterior: '+postedPrev.length);
-    html += tile('span2','Engajamento médio',
-      engAvg==null ? '—' : '<span data-tick="'+engAvg.toFixed(2)+'" data-fmt="pct">0</span>',
-      'postados com métricas ('+engAll.length+')');
+      '<span data-tick="'+cur.length+'" data-fmt="int">0</span>'+delta(cur.length,prev.length,false),
+      'anterior: '+prev.length);
+    html += tile('span2','Engajamento do mês',
+      erMes==null ? '—' : pctTick(erMes)+benchChip(erMes,4,false),
+      erMes==null ? semAlc : 'interações ÷ alcance');
     html += tile('span2','Em produção',
       '<span data-tick="'+inPipe+'" data-fmt="int">0</span>',
       ideias+' no banco de ideias');
+    html += tile('span3','Retenção média',
+      retMedia==null ? '—' : pctTick(retMedia)+benchChip(retMedia,50,false),
+      retMedia==null ? 'preencha a retenção nos posts' : '% médio assistido dos Reels');
+    html += tile('span3','Skip rate médio',
+      skipMedia==null ? '—' : pctTick(skipMedia)+benchChip(skipMedia,35,true),
+      skipMedia==null ? 'preencha o skip rate nos posts' : '% que pula nos 3 primeiros seg.');
+    html += tile('span3','Taxa de salvamento',
+      saveRate==null ? '—' : pctTick(saveRate)+benchChip(saveRate,1,false),
+      saveRate==null ? semAlc : 'salvos ÷ alcance · sinal nº 1 do algoritmo');
+    html += tile('span3','Compart. ÷ alcance',
+      shareRate==null ? '—' : pctTick(shareRate)+benchChip(shareRate,1,false),
+      shareRate==null ? semAlc : '1–2% forte · 3%+ viral');
     $('#tiles').innerHTML = html;
     tickValues($('#tiles'));
   }
@@ -1205,7 +1253,7 @@
       var i = +hit.dataset.i, d = data[i];
       function show(evt){
         bars.forEach(function(b,bi){ b.classList.toggle('hot', bi===i); });
-        var e = engagement(d);
+        var e = erAlcance(d);
         tip.innerHTML = '<span class="d">'+fmtBRfull(d.dataPostagem)+' · '+esc((d.formato||'').toUpperCase())+'</span>'+
           '<span class="t">'+esc(d.titulo)+'</span>'+
           '<span class="v">'+fmtNum(d.views)+' views · '+fmtEng(e)+'</span>';
@@ -1361,10 +1409,12 @@
     {k:'formato', l:'Formato'},
     {k:'pilar', l:'Pilar'},
     {k:'views', l:'Views', num:true},
+    {k:'alcance', l:'Alcance', num:true},
     {k:'curtidas', l:'Curtidas', num:true},
     {k:'comentarios', l:'Coment.', num:true},
     {k:'compartilhamentos', l:'Compart.', num:true},
     {k:'salvamentos', l:'Salvos', num:true},
+    {k:'retencao', l:'Ret. %', num:true},
     {k:'eng', l:'Engaj.', num:true},
     {k:'link', l:'Link'}
   ];
@@ -1395,7 +1445,7 @@
     if(tbl.pilar) rows = rows.filter(function(i){ return i.pilar===tbl.pilar; });
     rows.sort(function(a,b){
       var k = tbl.sort, va, vb;
-      if(k==='eng'){ va = engagement(a); vb = engagement(b); }
+      if(k==='eng'){ va = erAlcance(a); vb = erAlcance(b); }
       else { va = a[k]; vb = b[k]; }
       if(va==null && vb==null) return 0;
       if(va==null) return 1;
@@ -1408,10 +1458,10 @@
       $('#tblBody').innerHTML = '<tr><td colspan="'+COLS.length+'"><div class="empty">Nenhum post publicado '+(tbl.q||tbl.formato||tbl.pilar?'com esses filtros':'ainda')+'.</div></td></tr>';
       return;
     }
-    var engs = rows.map(engagement).filter(function(e){ return e!=null; });
+    var engs = rows.map(erAlcance).filter(function(e){ return e!=null; });
     var best = engs.length ? Math.max.apply(null,engs) : null;
     $('#tblBody').innerHTML = rows.map(function(i){
-      var e = engagement(i);
+      var e = erAlcance(i);
       var fillPct = (e!=null && best) ? Math.max(4, Math.round(e/best*100)) : 0;
       var link = i.link ? '<a href="'+esc(i.link)+'" target="_blank" rel="noopener" aria-label="Abrir post">↗</a>' : '<span style="color:var(--text-3)">—</span>';
       var engHtml = e==null ? '—' :
@@ -1423,10 +1473,12 @@
         '<td>'+fmtChip(i.formato)+'</td>'+
         '<td>'+pilarTag(i.pilar)+'</td>'+
         '<td class="r">'+fmtNum(i.views)+'</td>'+
+        '<td class="r">'+fmtNum(i.alcance)+'</td>'+
         '<td class="r">'+fmtNum(i.curtidas)+'</td>'+
         '<td class="r">'+fmtNum(i.comentarios)+'</td>'+
         '<td class="r">'+fmtNum(i.compartilhamentos)+'</td>'+
         '<td class="r">'+fmtNum(i.salvamentos)+'</td>'+
+        '<td class="r">'+fmtPct1(i.retencao)+'</td>'+
         '<td class="r">'+engHtml+'</td>'+
         '<td>'+link+'</td>'+
       '</tr>';
@@ -1468,13 +1520,14 @@
     return isNaN(n)||n<0 ? null : n;
   }
   function updateEngPreview(){
-    var views = numVal('#fViews');
+    var alc = numVal('#fAlcance');
+    var base = alc || numVal('#fViews');
     var sum = (numVal('#fCurtidas')||0)+(numVal('#fComentarios')||0)+(numVal('#fCompart')||0)+(numVal('#fSalvos')||0);
-    $('#engPreview').innerHTML = views
-      ? 'engajamento <b>'+fmtEng(sum/views*100)+'</b> — (curtidas + comentários + compart. + salvos) ÷ views'
-      : 'engajamento <b>—</b> · preencha as views';
+    $('#engPreview').innerHTML = base
+      ? 'engajamento <b>'+fmtEng(sum/base*100)+'</b> — interações ÷ '+(alc?'alcance · meta ≥4%':'views (preencha o alcance pro cálculo oficial)')
+      : 'engajamento <b>—</b> · preencha alcance ou views';
   }
-  ['#fViews','#fCurtidas','#fComentarios','#fCompart','#fSalvos'].forEach(function(id){
+  ['#fViews','#fAlcance','#fCurtidas','#fComentarios','#fCompart','#fSalvos'].forEach(function(id){
     $(id).addEventListener('input', updateEngPreview);
   });
 
@@ -1485,7 +1538,8 @@
     var d = item || Object.assign({
       titulo:'', gancho:'', status:'ideia', formato:'', pilar:'', responsavel:'',
       dataPrevista:'', dataPostagem:'', link:'', legenda:'', obs:'',
-      views:null, curtidas:null, comentarios:null, compartilhamentos:null, salvamentos:null
+      views:null, alcance:null, curtidas:null, comentarios:null, compartilhamentos:null, salvamentos:null,
+      retencao:null, skiprate:null
     }, presets||{});
     $('#fTitulo').value = d.titulo||'';
     $('#fGancho').value = d.gancho||'';
@@ -1499,6 +1553,9 @@
     $('#fLegenda').value = d.legenda||'';
     $('#fObs').value = d.obs||'';
     $('#fViews').value = d.views==null?'':d.views;
+    $('#fAlcance').value = d.alcance==null?'':d.alcance;
+    $('#fRetencao').value = d.retencao==null?'':d.retencao;
+    $('#fSkip').value = d.skiprate==null?'':d.skiprate;
     $('#fCurtidas').value = d.curtidas==null?'':d.curtidas;
     $('#fComentarios').value = d.comentarios==null?'':d.comentarios;
     $('#fCompart').value = d.compartilhamentos==null?'':d.compartilhamentos;
@@ -1524,10 +1581,13 @@
       legenda:$('#fLegenda').value,
       obs:$('#fObs').value,
       views:numVal('#fViews'),
+      alcance:numVal('#fAlcance'),
       curtidas:numVal('#fCurtidas'),
       comentarios:numVal('#fComentarios'),
       compartilhamentos:numVal('#fCompart'),
-      salvamentos:numVal('#fSalvos')
+      salvamentos:numVal('#fSalvos'),
+      retencao:pctOrNull($('#fRetencao').value),
+      skiprate:pctOrNull($('#fSkip').value)
     };
     if(data.status==='postado' && !data.dataPostagem) data.dataPostagem = todayISO();
     if(editingId){
@@ -1616,10 +1676,11 @@
             dataPrevista: i.dataPrevista||'', dataPostagem: i.dataPostagem||'',
             link: i.link||'', gancho: i.gancho||'', legenda: i.legenda||'',
             responsavel: i.responsavel||'', obs: i.obs||'',
-            views: numOrNull(i.views), curtidas: numOrNull(i.curtidas),
+            views: numOrNull(i.views), alcance: numOrNull(i.alcance), curtidas: numOrNull(i.curtidas),
             comentarios: numOrNull(i.comentarios),
             compartilhamentos: numOrNull(i.compartilhamentos),
             salvamentos: numOrNull(i.salvamentos),
+            retencao: pctOrNull(i.retencao), skiprate: pctOrNull(i.skiprate),
             criadoEm: i.criadoEm||todayISO()
           };
         });
