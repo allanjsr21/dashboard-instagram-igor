@@ -295,41 +295,43 @@
   .distlegend button:active{transform:translateY(1px)}
   .distlegend .cnt{font-variant-numeric:tabular-nums;color:var(--text-1)}
 
-  /* ================= PIPELINE ================= */
-  .board-scroll{overflow-x:auto;padding-bottom:10px}
-  .board{display:flex;gap:12px;align-items:flex-start;min-width:min-content}
-  .col{
-    width:280px; flex:none; scroll-snap-align:start;
-    background:var(--bg-1); border:1px solid var(--hair); border-radius:12px;
-    transition:outline-color .12s var(--ease);
-  }
-  .col.dragover{outline:2px solid var(--accent);outline-offset:0;box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 12%, transparent)}
-  .col-h{display:flex;align-items:baseline;gap:9px;padding:12px 14px 8px}
-  .col-h .ghost{font:250 26px/1 var(--mono);color:var(--text-3);opacity:.45;font-variant-numeric:tabular-nums}
-  .col-h .name{font-size:12.5px;font-weight:700;letter-spacing:.01em}
-  .col-h .cnt{
+  /* ================= PRODUÇÃO (lista) ================= */
+  .plist{display:flex;flex-direction:column;gap:14px}
+  .plist-group{background:var(--bg-1);border:1px solid var(--hair);border-radius:12px;overflow:hidden}
+  .plist-head{display:flex;align-items:center;gap:9px;padding:11px 16px;border-bottom:1px solid var(--hair)}
+  .plist-head .ghost{font:250 20px/1 var(--mono);color:var(--text-3);opacity:.55;font-variant-numeric:tabular-nums}
+  .plist-head .dot{width:8px;height:8px;border-radius:999px;flex:none}
+  .plist-head .name{font-size:13px;font-weight:700;letter-spacing:.01em}
+  .plist-head .cnt{
     margin-left:auto; font:550 11px/1 var(--mono); font-variant-numeric:tabular-nums;
     color:var(--text-3); border:1px solid var(--hair); border-radius:999px; padding:3px 8px;
   }
-  .col-h .add{position:relative;color:var(--text-3);padding:2px 7px;border-radius:6px;font-size:15px;line-height:1}
-  .col-h .add::after{content:"";position:absolute;inset:-9px}
-  .col-h .add:hover{background:var(--bg-3);color:var(--text-1)}
-  .col-body{min-height:40px;padding:4px 10px 12px;display:flex;flex-direction:column;gap:8px}
-  .kcard{
-    background:var(--bg-1); border:1px solid var(--hair); border-radius:8px;
-    border-left-width:2px; padding:11px 12px 10px; cursor:grab;
-    transition:border-color .12s var(--ease), background .12s var(--ease);
+  .plist-head .add{position:relative;color:var(--text-3);padding:2px 8px;border-radius:6px;font-size:16px;line-height:1}
+  .plist-head .add::after{content:"";position:absolute;inset:-9px}
+  .plist-head .add:hover{background:var(--bg-3);color:var(--text-1)}
+  .plist-body{display:flex;flex-direction:column}
+  .prow{
+    display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;
+    transition:background .12s var(--ease);
   }
-  .kcard:hover{border-color:var(--hair-strong);background:var(--bg-3)}
-  .kcard:active{cursor:grabbing}
-  .kcard.dragging{opacity:.5;transform:rotate(1.5deg);box-shadow:var(--elev)}
-  .kcard h3{margin:0 0 8px;font-size:13.5px;font-weight:600;letter-spacing:-.01em;line-height:1.35}
-  .kcard .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
-  .kcard .foot{
-    display:flex;align-items:center;justify-content:space-between;gap:8px;
-    font:500 11px/1.2 var(--mono);font-variant-numeric:tabular-nums;color:var(--text-3);
+  .prow + .prow{border-top:1px solid var(--hair)}
+  .prow:hover{background:var(--bg-3)}
+  .prow .pmain{min-width:0;flex:1}
+  .prow .pmain b{display:block;font-size:13.5px;font-weight:600;letter-spacing:-.01em;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .prow .pmeta{display:flex;align-items:center;gap:8px;margin-top:5px;flex-wrap:wrap}
+  .prow .pdate{font:500 11px/1.2 var(--mono);font-variant-numeric:tabular-nums;color:var(--text-3)}
+  .prow .pdate.late{color:var(--down);font-weight:600}
+  select.pstatus{
+    flex:none;height:32px;max-width:170px;padding:0 8px;border:1px solid var(--hair);border-radius:8px;
+    background:var(--bg-0);font-size:12px;color:var(--text-2);cursor:pointer;
+    transition:border-color .12s var(--ease);
   }
-  .kcard .foot .late{color:var(--down);font-weight:600}
+  select.pstatus:hover{border-color:var(--hair-strong);color:var(--text-1)}
+  .prow-empty{padding:12px 16px;font:500 12px/1.4 var(--mono);color:var(--text-3)}
+  @media (max-width:560px){
+    .prow{flex-wrap:wrap}
+    select.pstatus{max-width:none;width:100%}
+  }
 
   /* ================= CALENDÁRIO ================= */
   .cal-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
@@ -499,7 +501,7 @@
     <nav class="tabs" role="tablist" aria-label="Seções">
       <span class="tab-ind" id="tabInd" aria-hidden="true"></span>
       <button role="tab" id="tabbtn-overview" aria-controls="tab-overview" data-tab="overview" aria-selected="true">Visão geral</button>
-      <button role="tab" id="tabbtn-pipeline" aria-controls="tab-pipeline" data-tab="pipeline" aria-selected="false" tabindex="-1">Pipeline</button>
+      <button role="tab" id="tabbtn-pipeline" aria-controls="tab-pipeline" data-tab="pipeline" aria-selected="false" tabindex="-1">Produção</button>
       <button role="tab" id="tabbtn-calendar" aria-controls="tab-calendar" data-tab="calendar" aria-selected="false" tabindex="-1">Calendário</button>
       <button role="tab" id="tabbtn-posted" aria-controls="tab-posted" data-tab="posted" aria-selected="false" tabindex="-1">Postados</button>
     </nav>
@@ -552,7 +554,7 @@
     </div>
     <div class="panel" style="margin-top:14px">
       <div class="panel-head">
-        <span class="microlabel">04 — Pipeline agora</span>
+        <span class="microlabel">04 — Produção agora</span>
         <span class="meta num" id="distMeta"></span>
       </div>
       <div class="distbar" id="distbar"></div>
@@ -568,7 +570,7 @@
   </section>
 
   <section id="tab-pipeline" role="tabpanel" aria-labelledby="tabbtn-pipeline" hidden>
-    <div class="board-scroll"><div class="board" id="board"></div></div>
+    <div class="plist" id="board"></div>
   </section>
 
   <section id="tab-calendar" role="tabpanel" aria-labelledby="tabbtn-calendar" hidden>
@@ -1277,70 +1279,79 @@
     });
   }
 
-  /* ---------- kanban ---------- */
+  /* ---------- produção (lista agrupada por etapa) ---------- */
+  function moveStatus(id, to){
+    var it = byId(id);
+    if(!it || it.status===to) return;
+    it.status = to;
+    if(to==='postado' && !it.dataPostagem){
+      it.dataPostagem = todayISO();
+      save('Movido pra '+STAGE_BY_ID.postado.n+' · Postado — preencha as métricas em ~48h');
+      render();
+      openModal(it);
+      return;
+    }
+    save('Movido pra '+STAGE_BY_ID[to].n+' · '+STAGE_BY_ID[to].label);
+    render();
+  }
   function renderBoard(){
     var host = $('#board');
-    host.innerHTML = STAGES.map(function(s){
+    var t = todayISO();
+    var statusOpts = STAGES.map(function(s){ return {v:s.id, l:s.n+' · '+s.label}; });
+    function prow(i, stageId){
+      var late = i.dataPrevista && i.dataPrevista < t && stageId!=='postado' && stageId!=='descartado';
+      var meta;
+      if(stageId==='postado'){
+        meta = '<span class="pdate">'+(i.dataPostagem?fmtBR(i.dataPostagem):'—')+'</span>'+
+               '<span class="pdate">'+(i.views?fmtCompact(i.views)+' views':'sem métricas')+'</span>';
+      } else {
+        meta = '<span class="pdate '+(late?'late':'')+'">'+(i.dataPrevista?(late?'▲ ':'')+fmtBR(i.dataPrevista):'sem data')+'</span>'+
+               (i.responsavel?'<span class="pdate">'+esc(i.responsavel)+'</span>':'');
+      }
+      var opts = statusOpts.map(function(o){
+        return '<option value="'+o.v+'"'+(o.v===stageId?' selected':'')+'>'+esc(o.l)+'</option>';
+      }).join('');
+      return '<div class="prow" data-id="'+i.id+'" tabindex="0" role="button" aria-label="Editar '+esc(i.titulo)+'">'+
+        '<span class="pmain"><b>'+esc(i.titulo)+'</b>'+
+        '<span class="pmeta">'+fmtChip(i.formato)+pilarTag(i.pilar)+meta+'</span></span>'+
+        '<select class="pstatus" data-id="'+i.id+'" aria-label="Mudar etapa de '+esc(i.titulo)+'">'+opts+'</select>'+
+      '</div>';
+    }
+    var groups = STAGES.filter(function(s){
+      return s.id!=='descartado' || state.items.some(function(i){ return i.status==='descartado'; });
+    });
+    host.innerHTML = groups.map(function(s){
       var cards = state.items.filter(function(i){ return i.status===s.id; })
         .sort(function(a,b){ return (a.dataPrevista||'9999')<(b.dataPrevista||'9999')?-1:1; });
-      var body = cards.map(function(i){
-        var late = i.dataPrevista && i.dataPrevista < todayISO() && s.id!=='postado' && s.id!=='descartado';
-        var foot = '';
-        if(s.id==='postado'){
-          foot = '<span>'+(i.dataPostagem?fmtBR(i.dataPostagem):'')+'</span><span>'+(i.views?fmtCompact(i.views)+' views':'sem métricas')+'</span>';
-        } else {
-          foot = '<span class="'+(late?'late':'')+'">'+(i.dataPrevista?(late?'▲ ':'')+fmtBR(i.dataPrevista):'sem data')+'</span>'+
-                 (i.responsavel?'<span>'+esc(i.responsavel)+'</span>':'');
-        }
-        return '<article class="kcard" draggable="true" data-id="'+i.id+'" tabindex="0" role="button" '+
-          'style="border-left-color:var('+s.ramp+')" aria-label="'+esc(i.titulo)+'">'+
-          '<h3>'+esc(i.titulo)+'</h3>'+
-          '<div class="row">'+fmtChip(i.formato)+pilarTag(i.pilar)+'</div>'+
-          '<div class="foot">'+foot+'</div>'+
-        '</article>';
-      }).join('');
-      return '<div class="col" data-st="'+s.id+'">'+
-        '<div class="col-h"><span class="ghost">'+s.n+'</span><span class="name">'+esc(s.label)+'</span>'+
-        '<span class="cnt">'+cards.length+'</span><button class="add" data-st="'+s.id+'" aria-label="Adicionar em '+esc(s.label)+'">＋</button></div>'+
-        '<div class="col-body">'+body+'</div>'+
+      var body = cards.length ? cards.map(function(i){ return prow(i, s.id); }).join('')
+        : '<div class="prow-empty">nada aqui ainda</div>';
+      return '<div class="plist-group">'+
+        '<div class="plist-head">'+
+          '<span class="ghost">'+s.n+'</span>'+
+          '<span class="dot" style="background:var('+s.ramp+')"></span>'+
+          '<span class="name">'+esc(s.label)+'</span>'+
+          '<span class="cnt">'+cards.length+'</span>'+
+          '<button class="add" data-st="'+s.id+'" aria-label="Adicionar em '+esc(s.label)+'">＋</button>'+
+        '</div>'+
+        '<div class="plist-body">'+body+'</div>'+
       '</div>';
     }).join('');
 
-    $all('.kcard', host).forEach(function(card){
-      card.addEventListener('dragstart', function(e){
-        e.dataTransfer.setData('text/plain', card.dataset.id);
-        e.dataTransfer.effectAllowed = 'move';
-        card.classList.add('dragging');
+    $all('.prow', host).forEach(function(row){
+      row.addEventListener('click', function(e){
+        if(e.target.closest('select')) return;
+        openModal(byId(row.dataset.id));
       });
-      card.addEventListener('dragend', function(){ card.classList.remove('dragging'); });
-      card.addEventListener('click', function(){ openModal(byId(card.dataset.id)); });
-      card.addEventListener('keydown', function(e){
-        if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openModal(byId(card.dataset.id)); }
+      row.addEventListener('keydown', function(e){
+        if(e.target!==row) return; // Enter no select interno é do select
+        if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openModal(byId(row.dataset.id)); }
       });
     });
-    $all('.col', host).forEach(function(col){
-      col.addEventListener('dragover', function(e){ e.preventDefault(); col.classList.add('dragover'); });
-      col.addEventListener('dragleave', function(){ col.classList.remove('dragover'); });
-      col.addEventListener('drop', function(e){
-        e.preventDefault(); col.classList.remove('dragover');
-        var id = e.dataTransfer.getData('text/plain');
-        var it = byId(id);
-        if(!it) return;
-        var to = col.dataset.st;
-        if(it.status===to) return;
-        it.status = to;
-        if(to==='postado' && !it.dataPostagem){
-          it.dataPostagem = todayISO();
-          save('Movido pra '+STAGE_BY_ID.postado.n+' · Postado — preencha as métricas em ~48h');
-          render();
-          openModal(it);
-          return;
-        }
-        save('Movido pra '+STAGE_BY_ID[to].n+' · '+STAGE_BY_ID[to].label);
-        render();
-      });
+    $all('.pstatus', host).forEach(function(sel){
+      sel.addEventListener('click', function(e){ e.stopPropagation(); });
+      sel.addEventListener('change', function(){ moveStatus(sel.dataset.id, sel.value); });
     });
-    $all('.col .add', host).forEach(function(b){
+    $all('.plist-head .add', host).forEach(function(b){
       b.addEventListener('click', function(e){
         e.stopPropagation();
         openModal(null, {status:b.dataset.st});
