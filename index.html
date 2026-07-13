@@ -3,17 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Instagram Igor â€” Dashboard</title>
+<title>Instagram Igor — Dashboard</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#128241;</text></svg>">
 </head>
-<body><style>
-  /* ================= COCKPIT Ã¢â‚¬â€ terminal financeiro premium =================
-     Contratos do sistema (nÃƒÂ£o uniformizar):
-     - Glow sÃƒÂ³ em 3 lugares: dot vivo, focus-visible, hover de dado no grÃƒÂ¡fico.
-     - Raio semÃƒÂ¢ntico: painÃƒÂ©is 12px Ã‚Â· inputs/botÃƒÂµes 8px Ã‚Â· chips de dado 4px Ã‚Â· pills de status 999px.
-     - Mono ÃƒÂ© meta-linguagem (labels, timestamps, contadores, numerais) Ã¢â‚¬â€ nunca em tÃƒÂ­tulos de conteÃƒÂºdo/corpo/botÃƒÂµes.
+<body>
+<style>
+  /* ================= COCKPIT — terminal financeiro premium =================
+     Contratos do sistema (não uniformizar):
+     - Glow só em 3 lugares: dot vivo, focus-visible, hover de dado no gráfico.
+     - Raio semântico: painéis 12px · inputs/botões 8px · chips de dado 4px · pills de status 999px.
+     - Mono é meta-linguagem (labels, timestamps, contadores, numerais) — nunca em títulos de conteúdo/corpo/botões.
      - Verde/vermelho exclusivos de deltas, atraso e destrutivo.
-     - Etapas 01Ã¢â€ â€™07 = rampa ordinal de luminÃƒÂ¢ncia de UM dourado; cor ÃƒÂ© reforÃƒÂ§o, nunca codificaÃƒÂ§ÃƒÂ£o ÃƒÂºnica. */
+     - Etapas 01→07 = rampa ordinal de luminância de UM dourado; cor é reforço, nunca codificação única. */
   :root{
     --bg-0:#EEF1F8; --bg-1:#FFFFFF; --bg-2:#FFFFFF; --bg-3:#F3F6FC;
     --hair:rgba(24,38,74,.10); --hair-strong:rgba(24,38,74,.18);
@@ -194,7 +195,7 @@
   }
   .panel-head .meta{font:550 12px/1 var(--mono);color:var(--text-3)}
 
-  /* ================= VISÃƒÆ’O GERAL ================= */
+  /* ================= VISÃO GERAL ================= */
   .grid12{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
   .span2{grid-column:span 2}.span4{grid-column:span 4}.span6{grid-column:span 6}.span8{grid-column:span 8}
   @media (max-width:980px){
@@ -330,7 +331,7 @@
   }
   .kcard .foot .late{color:var(--down);font-weight:600}
 
-  /* ================= CALENDÃƒÂRIO ================= */
+  /* ================= CALENDÁRIO ================= */
   .cal-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
   .cal-head h2{margin:0;font-size:17px;font-weight:700;letter-spacing:-.01em;text-transform:capitalize;min-width:170px}
   .cal-nav{display:flex;gap:6px}
@@ -492,27 +493,27 @@
 <header class="top">
   <div class="top-inner">
     <div class="brand">
-      <span class="wordmark">Vault Ã‚Â· Igor Ops</span>
+      <span class="wordmark">Vault · Igor Ops</span>
       <span class="ed num" id="topWeek"></span>
     </div>
-    <nav class="tabs" role="tablist" aria-label="SeÃƒÂ§ÃƒÂµes">
+    <nav class="tabs" role="tablist" aria-label="Seções">
       <span class="tab-ind" id="tabInd" aria-hidden="true"></span>
-      <button role="tab" id="tabbtn-overview" aria-controls="tab-overview" data-tab="overview" aria-selected="true">VisÃƒÂ£o geral</button>
+      <button role="tab" id="tabbtn-overview" aria-controls="tab-overview" data-tab="overview" aria-selected="true">Visão geral</button>
       <button role="tab" id="tabbtn-pipeline" aria-controls="tab-pipeline" data-tab="pipeline" aria-selected="false" tabindex="-1">Pipeline</button>
-      <button role="tab" id="tabbtn-calendar" aria-controls="tab-calendar" data-tab="calendar" aria-selected="false" tabindex="-1">CalendÃƒÂ¡rio</button>
+      <button role="tab" id="tabbtn-calendar" aria-controls="tab-calendar" data-tab="calendar" aria-selected="false" tabindex="-1">Calendário</button>
       <button role="tab" id="tabbtn-posted" aria-controls="tab-posted" data-tab="posted" aria-selected="false" tabindex="-1">Postados</button>
     </nav>
     <div class="top-right">
       <span class="top-date num" id="topDate"></span>
       <div class="menu-anchor">
-        <button class="btn icon" id="menuBtn" aria-haspopup="true" aria-expanded="false" aria-label="Mais opÃƒÂ§ÃƒÂµes">Ã¢â€¹Â¯</button>
+        <button class="btn icon" id="menuBtn" aria-haspopup="true" aria-expanded="false" aria-label="Mais opções">⋯</button>
         <div class="menu-pop" id="menuPop" role="menu">
           <button id="btnExport" role="menuitem">Exportar backup (JSON)</button>
           <button id="btnImport" role="menuitem">Importar backup</button>
           <button id="btnClearExamples" role="menuitem">Apagar itens [EXEMPLO]</button>
         </div>
       </div>
-      <button class="btn solid" id="btnNew">Ã¯Â¼â€¹ ConteÃƒÂºdo</button>
+      <button class="btn solid" id="btnNew">＋ Conteúdo</button>
     </div>
   </div>
 </header>
@@ -522,7 +523,7 @@
     <div class="grid12" id="tiles"></div>
     <div class="panel" style="margin-top:14px">
       <div class="panel-head">
-        <span class="microlabel">01 Ã¢â‚¬â€ Meta da semana</span>
+        <span class="microlabel">01 — Meta da semana</span>
         <span style="display:flex;align-items:center;gap:10px">
           <span class="meta num" id="goalsMeta"></span>
           <button class="btn sm" id="btnGoals">Editar</button>
@@ -533,8 +534,8 @@
     <div class="grid12" style="margin-top:14px">
       <div class="panel span8">
         <div class="panel-head">
-          <span class="microlabel">02 Ã¢â‚¬â€ Views por post</span>
-          <span class="meta num">ÃƒÂºltimos 10 postados</span>
+          <span class="microlabel">02 — Views por post</span>
+          <span class="meta num">últimos 10 postados</span>
         </div>
         <div class="chart-wrap" id="chartWrap">
           <div id="chart"></div>
@@ -543,7 +544,7 @@
       </div>
       <div class="panel span4">
         <div class="panel-head">
-          <span class="microlabel">03 Ã¢â‚¬â€ PrÃƒÂ³ximos 7 dias</span>
+          <span class="microlabel">03 — Próximos 7 dias</span>
           <span class="meta num" id="agendaMeta"></span>
         </div>
         <ul class="agenda" id="agenda"></ul>
@@ -551,7 +552,7 @@
     </div>
     <div class="panel" style="margin-top:14px">
       <div class="panel-head">
-        <span class="microlabel">04 Ã¢â‚¬â€ Pipeline agora</span>
+        <span class="microlabel">04 — Pipeline agora</span>
         <span class="meta num" id="distMeta"></span>
       </div>
       <div class="distbar" id="distbar"></div>
@@ -559,7 +560,7 @@
     </div>
     <div class="panel" style="margin-top:14px">
       <div class="panel-head">
-        <span class="microlabel">05 Ã¢â‚¬â€ O que funciona</span>
+        <span class="microlabel">05 — O que funciona</span>
         <span class="meta num">top 3 por salvos + compartilhamentos</span>
       </div>
       <ul class="agenda" id="topWins"></ul>
@@ -574,18 +575,18 @@
     <div class="cal-head">
       <h2 id="calTitle"></h2>
       <div class="cal-nav">
-        <button class="btn icon" id="calPrev" aria-label="MÃƒÂªs anterior">Ã¢â‚¬Â¹</button>
+        <button class="btn icon" id="calPrev" aria-label="Mês anterior">‹</button>
         <button class="btn" id="calToday">Hoje</button>
-        <button class="btn icon" id="calNext" aria-label="PrÃƒÂ³ximo mÃƒÂªs">Ã¢â‚¬Âº</button>
+        <button class="btn icon" id="calNext" aria-label="Próximo mês">›</button>
       </div>
-      <span class="cal-hint">dia vazio agenda Ã‚Â· post abre pra ediÃƒÂ§ÃƒÂ£o</span>
+      <span class="cal-hint">dia vazio agenda · post abre pra edição</span>
     </div>
     <div class="cal-frame"><div class="cal-grid" id="calGrid"></div></div>
   </section>
 
   <section id="tab-posted" role="tabpanel" aria-labelledby="tabbtn-posted" hidden>
     <div class="toolbar">
-      <input type="search" id="q" placeholder="Buscar por tÃƒÂ­tulo, gancho ou legendaÃ¢â‚¬Â¦" aria-label="Buscar">
+      <input type="search" id="q" placeholder="Buscar por título, gancho ou legenda…" aria-label="Buscar">
       <select id="fFormato" aria-label="Filtrar por formato"></select>
       <select id="fPilar" aria-label="Filtrar por pilar"></select>
     </div>
@@ -599,22 +600,22 @@
 </main>
 
 <footer class="app">
-  <span>Dados salvos neste navegador Ã‚Â· backup em Ã¢â€¹Â¯ Ã¢â€ â€™ exportar</span>
-  <span class="save"><span class="livedot" aria-hidden="true"></span><span id="lastSaved">Ã¢â‚¬â€</span></span>
+  <span>Dados salvos neste navegador · backup em ⋯ → exportar</span>
+  <span class="save"><span class="livedot" aria-hidden="true"></span><span id="lastSaved">—</span></span>
 </footer>
 
 <dialog id="modal" aria-labelledby="mTitle">
   <div class="m-head">
-    <h2 id="mTitle">Novo conteÃƒÂºdo</h2>
-    <button type="button" id="mClose" aria-label="Fechar">Ã¢Å“â€¢</button>
+    <h2 id="mTitle">Novo conteúdo</h2>
+    <button type="button" id="mClose" aria-label="Fechar">✕</button>
   </div>
   <form class="m-body" id="mForm" method="dialog">
     <fieldset>
-      <legend class="kicker"><b>01</b>ConteÃƒÂºdo</legend>
+      <legend class="kicker"><b>01</b>Conteúdo</legend>
       <div class="fgrid">
         <div class="fld full">
-          <label for="fTitulo">TÃƒÂ­tulo *</label>
-          <input id="fTitulo" required placeholder="Ex.: Reel Ã¢â‚¬â€ por que o halving importa pro seu patrimÃƒÂ´nio">
+          <label for="fTitulo">Título *</label>
+          <input id="fTitulo" required placeholder="Ex.: Reel — por que o halving importa pro seu patrimônio">
         </div>
         <div class="fld full">
           <label for="fGancho">Gancho (primeira frase / ideia central)</label>
@@ -623,12 +624,12 @@
       </div>
     </fieldset>
     <fieldset>
-      <legend class="kicker"><b>02</b>ClassificaÃƒÂ§ÃƒÂ£o</legend>
+      <legend class="kicker"><b>02</b>Classificação</legend>
       <div class="fgrid">
         <div class="fld"><label for="fStatus">Status</label><select id="fStatus"></select></div>
         <div class="fld"><label for="fFormatoM">Formato</label><select id="fFormatoM"></select></div>
         <div class="fld"><label for="fPilarM">Pilar</label><select id="fPilarM"></select></div>
-        <div class="fld"><label for="fResp">ResponsÃƒÂ¡vel</label><input id="fResp" placeholder="Quem toca esse conteÃƒÂºdo"></div>
+        <div class="fld"><label for="fResp">Responsável</label><input id="fResp" placeholder="Quem toca esse conteúdo"></div>
       </div>
     </fieldset>
     <fieldset>
@@ -636,11 +637,11 @@
       <div class="fgrid">
         <div class="fld"><label for="fPrevista">Data prevista</label><input type="date" id="fPrevista"></div>
         <div class="fld"><label for="fPostagem">Data de postagem</label><input type="date" id="fPostagem"></div>
-        <div class="fld full"><label for="fLink">Link do post</label><input type="url" id="fLink" placeholder="https://www.instagram.com/p/Ã¢â‚¬Â¦"></div>
+        <div class="fld full"><label for="fLink">Link do post</label><input type="url" id="fLink" placeholder="https://www.instagram.com/p/…"></div>
       </div>
     </fieldset>
     <fieldset>
-      <legend class="kicker"><b>04</b>MÃƒÂ©tricas Ã¢â‚¬â€ preencha ~48h apÃƒÂ³s postar</legend>
+      <legend class="kicker"><b>04</b>Métricas — preencha ~48h após postar</legend>
       <div class="metrics-grid">
         <div class="fld"><label for="fViews">Views</label><input type="number" min="0" id="fViews"></div>
         <div class="fld"><label for="fCurtidas">Curtidas</label><input type="number" min="0" id="fCurtidas"></div>
@@ -654,7 +655,7 @@
       <legend class="kicker"><b>05</b>Notas</legend>
       <div class="fgrid">
         <div class="fld full"><label for="fLegenda">Legenda</label><textarea id="fLegenda" rows="2"></textarea></div>
-        <div class="fld full"><label for="fObs">ObservaÃƒÂ§ÃƒÂµes</label><textarea id="fObs" rows="2"></textarea></div>
+        <div class="fld full"><label for="fObs">Observações</label><textarea id="fObs" rows="2"></textarea></div>
       </div>
     </fieldset>
     <div class="m-foot">
@@ -667,9 +668,9 @@
 </dialog>
 
 <dialog id="goalsDlg" aria-labelledby="gTitle">
-  <div class="m-head"><h2 id="gTitle">Meta da semana</h2><button type="button" id="gClose" aria-label="Fechar">Ã¢Å“â€¢</button></div>
+  <div class="m-head"><h2 id="gTitle">Meta da semana</h2><button type="button" id="gClose" aria-label="Fechar">✕</button></div>
   <form class="m-body" id="gForm" method="dialog">
-    <p style="margin:10px 0 4px;font-size:12.5px;line-height:1.55;color:var(--text-2)">Reels publicados de segunda a domingo contam pra meta. Deixe vazio pra nÃƒÂ£o acompanhar.</p>
+    <p style="margin:10px 0 4px;font-size:12.5px;line-height:1.55;color:var(--text-2)">Reels publicados de segunda a domingo contam pra meta. Deixe vazio pra não acompanhar.</p>
     <fieldset>
       <div class="fgrid">
         <div class="fld full"><label for="g-Reel">Reels por semana</label><input type="number" min="0" id="g-Reel" placeholder="12"></div>
@@ -680,7 +681,7 @@
 </dialog>
 
 <dialog id="confirmDlg" aria-labelledby="cMsg">
-  <div class="m-head"><h2>Confirmar</h2><button type="button" id="cClose" aria-label="Fechar">Ã¢Å“â€¢</button></div>
+  <div class="m-head"><h2>Confirmar</h2><button type="button" id="cClose" aria-label="Fechar">✕</button></div>
   <p id="cMsg"></p>
   <div class="m-foot"><div class="spacer"></div><button class="btn" id="cNo">Cancelar</button><button class="btn solid" id="cYes">Confirmar</button></div>
 </dialog>
@@ -696,17 +697,17 @@
   var STAGES = [
     {id:'ideia',      n:'01', label:'Ideia',          ramp:'--ramp-1'},
     {id:'roteiro',    n:'02', label:'Roteiro',        ramp:'--ramp-2'},
-    {id:'gravacao',   n:'03', label:'GravaÃƒÂ§ÃƒÂ£o',       ramp:'--ramp-3'},
-    {id:'edicao',     n:'04', label:'EdiÃƒÂ§ÃƒÂ£o',         ramp:'--ramp-4'},
+    {id:'gravacao',   n:'03', label:'Gravação',       ramp:'--ramp-3'},
+    {id:'edicao',     n:'04', label:'Edição',         ramp:'--ramp-4'},
     {id:'agendado',   n:'05', label:'Agendado',       ramp:'--ramp-6'},
     {id:'postado',    n:'06', label:'Postado',        ramp:'--ramp-7'},
-    {id:'descartado', n:'Ã¢â‚¬â€',  label:'Descartado',     ramp:'--ramp-x'}
+    {id:'descartado', n:'—',  label:'Descartado',     ramp:'--ramp-x'}
   ];
   var STAGE_BY_ID = {};
   STAGES.forEach(function(s){ STAGE_BY_ID[s.id] = s; });
   var FORMATOS = ['Reel','Carrossel','Foto','Story','Live'];
   var GOAL_KEYS = ['Reel']; // meta somente de Reels (pedido do Landi)
-  var PILARES = ['AnÃƒÂ¡lise de mercado','Educativo','OpiniÃƒÂ£o/Tese','Institucional Vault','Bastidores/Pessoal','NotÃƒÂ­cia/ReaÃƒÂ§ÃƒÂ£o'];
+  var PILARES = ['Análise de mercado','Educativo','Opinião/Tese','Institucional Vault','Bastidores/Pessoal','Notícia/Reação'];
   var PILAR_VAR = {};
   PILARES.forEach(function(p,i){ PILAR_VAR[p] = '--pi-'+(i+1); });
 
@@ -737,14 +738,14 @@
   function fmtBRfull(s){ if(!s) return ''; var p = s.split('-'); return p[2] + '/' + p[1] + '/' + p[0]; }
   var nfInt = new Intl.NumberFormat('pt-BR');
   var nfCompact = new Intl.NumberFormat('pt-BR',{notation:'compact',maximumFractionDigits:1});
-  function fmtNum(v){ return v==null ? 'Ã¢â‚¬â€' : nfInt.format(v); }
-  function fmtCompact(v){ return v==null ? 'Ã¢â‚¬â€' : nfCompact.format(v); }
+  function fmtNum(v){ return v==null ? '—' : nfInt.format(v); }
+  function fmtCompact(v){ return v==null ? '—' : nfCompact.format(v); }
   function engagement(it){
     if(!it.views) return null;
     var sum = (it.curtidas||0)+(it.comentarios||0)+(it.compartilhamentos||0)+(it.salvamentos||0);
     return sum / it.views * 100;
   }
-  function fmtEng(e){ return e==null ? 'Ã¢â‚¬â€' : e.toFixed(1).replace('.',',') + '%'; }
+  function fmtEng(e){ return e==null ? '—' : e.toFixed(1).replace('.',',') + '%'; }
   function numOrNull(v){
     if(v==null || v==='') return null;
     var n = +v;
@@ -781,33 +782,33 @@
   /* ---------- data ---------- */
   function seeds(){
     return [
-      { id:uid(), titulo:'Mercado de previsÃƒÂ£o precificando a eleiÃƒÂ§ÃƒÂ£o (versÃƒÂ£o despolitizada)',
-        status:'edicao', formato:'Reel', pilar:'AnÃƒÂ¡lise de mercado',
+      { id:uid(), titulo:'Mercado de previsão precificando a eleição (versão despolitizada)',
+        status:'edicao', formato:'Reel', pilar:'Análise de mercado',
         dataPrevista:'2026-07-14', dataPostagem:'', link:'',
-        gancho:'Tem gente apostando dinheiro de verdade no resultado da eleiÃƒÂ§ÃƒÂ£o Ã¢â‚¬â€ e o preÃƒÂ§o dessa aposta diz muito sobre o seu patrimÃƒÂ´nio',
+        gancho:'Tem gente apostando dinheiro de verdade no resultado da eleição — e o preço dessa aposta diz muito sobre o seu patrimônio',
         legenda:'', responsavel:'',
         views:null, curtidas:null, comentarios:null, compartilhamentos:null, salvamentos:null,
-        obs:'Gravado em 09/07. Aprovado por ser despolitizado: sem nome de candidato, foco no mecanismo do mercado e no ÃƒÂ¢ngulo patrimÃƒÂ´nio/soberania.',
+        obs:'Gravado em 09/07. Aprovado por ser despolitizado: sem nome de candidato, foco no mecanismo do mercado e no ângulo patrimônio/soberania.',
         criadoEm:'2026-07-12' },
-      { id:uid(), titulo:'[EXEMPLO] Reel: 3 erros de quem estÃƒÂ¡ comeÃƒÂ§ando em cripto',
+      { id:uid(), titulo:'[EXEMPLO] Reel: 3 erros de quem está começando em cripto',
         status:'ideia', formato:'Reel', pilar:'Educativo',
         dataPrevista:'', dataPostagem:'', link:'',
-        gancho:'O erro nÃ‚Âº 1 nÃƒÂ£o ÃƒÂ© comprar a moeda errada Ã¢â‚¬â€ ÃƒÂ© deixar tudo na corretora',
+        gancho:'O erro nº 1 não é comprar a moeda errada — é deixar tudo na corretora',
         legenda:'', responsavel:'',
         views:null, curtidas:null, comentarios:null, compartilhamentos:null, salvamentos:null,
-        obs:'Card de exemplo Ã¢â‚¬â€ pode apagar (Ã¢â€¹Â¯ Ã¢â€ â€™ Apagar itens [EXEMPLO]).', criadoEm:'2026-07-12' },
-      { id:uid(), titulo:'[EXEMPLO] Carrossel: autocustÃƒÂ³dia explicada em 5 slides',
+        obs:'Card de exemplo — pode apagar (⋯ → Apagar itens [EXEMPLO]).', criadoEm:'2026-07-12' },
+      { id:uid(), titulo:'[EXEMPLO] Carrossel: autocustódia explicada em 5 slides',
         status:'roteiro', formato:'Carrossel', pilar:'Educativo',
         dataPrevista:'2026-07-17', dataPostagem:'', link:'',
         gancho:'', legenda:'', responsavel:'',
         views:null, curtidas:null, comentarios:null, compartilhamentos:null, salvamentos:null,
-        obs:'Card de exemplo Ã¢â‚¬â€ pode apagar.', criadoEm:'2026-07-12' },
-      { id:uid(), titulo:'[EXEMPLO] Post publicado Ã¢â‚¬â€ veja como registrar mÃƒÂ©tricas',
-        status:'postado', formato:'Reel', pilar:'AnÃƒÂ¡lise de mercado',
+        obs:'Card de exemplo — pode apagar.', criadoEm:'2026-07-12' },
+      { id:uid(), titulo:'[EXEMPLO] Post publicado — veja como registrar métricas',
+        status:'postado', formato:'Reel', pilar:'Análise de mercado',
         dataPrevista:'2026-07-08', dataPostagem:'2026-07-08',
         link:'', gancho:'', legenda:'', responsavel:'',
         views:10000, curtidas:520, comentarios:48, compartilhamentos:35, salvamentos:27,
-        obs:'Linha de exemplo Ã¢â‚¬â€ o Engajamento % soma curtidas + comentÃƒÂ¡rios + compartilhamentos + salvos e divide por views.',
+        obs:'Linha de exemplo — o Engajamento % soma curtidas + comentários + compartilhamentos + salvos e divide por views.',
         criadoEm:'2026-07-12' }
     ];
   }
@@ -820,11 +821,11 @@
         if(parsed && Array.isArray(parsed.items)){
           // sanitiza dados legados/editados sob a mesma chave LS
           state.items = parsed.items.filter(function(i){ return i && i.titulo; }).map(function(i){
-            if(i.status==='aprovacao') i.status = 'edicao'; // etapa removida Ã¢â€ â€™ volta pra ediÃƒÂ§ÃƒÂ£o
+            if(i.status==='aprovacao') i.status = 'edicao'; // etapa removida → volta pra edição
             if(!STAGE_BY_ID[i.status]) i.status = 'ideia';
             return i;
           });
-          // goals ausente = dado prÃƒÂ©-feature Ã¢â€ â€™ aplica default; objeto (mesmo vazio) = escolha do usuÃƒÂ¡rio
+          // goals ausente = dado pré-feature → aplica default; objeto (mesmo vazio) = escolha do usuário
           state.goals = parsed.goals !== undefined ? (sanitizeGoals(parsed.goals) || {}) : defaultGoals();
           return;
         }
@@ -838,7 +839,7 @@
       localStorage.setItem(LS_KEY, JSON.stringify({v:1, savedAt:new Date().toISOString(), items:state.items, goals:state.goals}));
       $('#lastSaved').textContent = 'salvo ' + new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
     }catch(e){
-      showToast('NÃƒÂ£o consegui salvar no navegador Ã¢â‚¬â€ exporte um backup.');
+      showToast('Não consegui salvar no navegador — exporte um backup.');
     }
     if(toastIt) showToast(typeof toastIt==='string' ? toastIt : 'Salvo');
   }
@@ -865,7 +866,7 @@
   /* ---------- topbar: data + semana viva ---------- */
   (function(){
     var now = new Date();
-    $('#topWeek').textContent = 'ED. S' + String(isoWeek(now)).padStart(2,'0') + ' Ã‚Â· ' + now.getFullYear();
+    $('#topWeek').textContent = 'ED. S' + String(isoWeek(now)).padStart(2,'0') + ' · ' + now.getFullYear();
     $('#topDate').textContent = now.toLocaleDateString('pt-BR',{weekday:'short', day:'2-digit', month:'short'}).replace(/\./g,'');
   })();
 
@@ -937,7 +938,7 @@
       if(reduceMotion || document.hidden || !isFinite(target)){ el.textContent = fmt(target); return; }
       var t0 = null, DUR = 600, done = false;
       function finish(){ if(!done){ done = true; el.textContent = fmt(target); } }
-      // rAF pode nunca disparar (aba oculta, economia de bateria) Ã¢â‚¬â€ garante o valor final
+      // rAF pode nunca disparar (aba oculta, economia de bateria) — garante o valor final
       setTimeout(finish, DUR + 120);
       function step(ts){
         if(done) return;
@@ -951,7 +952,7 @@
     });
   }
 
-  /* ---------- visÃƒÂ£o geral ---------- */
+  /* ---------- visão geral ---------- */
   function renderTiles(){
     var now = todayISO(), curM = now.slice(0,7);
     var pm = new Date(); pm.setDate(1); pm.setMonth(pm.getMonth()-1);
@@ -972,7 +973,7 @@
       var d = pct ? (cur-prev)/prev*100 : (cur-prev);
       if(!isFinite(d) || Math.abs(d) < 0.05) return '';
       var up = d>0;
-      var txt = (up?'Ã¢â€“Â² +':'Ã¢â€“Â¼ ')+(pct ? d.toFixed(0)+'%' : d);
+      var txt = (up?'▲ +':'▼ ')+(pct ? d.toFixed(0)+'%' : d);
       return '<span class="delta '+(up?'up':'down')+'">'+txt+'</span>';
     }
     function tile(cls, label, valueHtml, sub){
@@ -982,16 +983,16 @@
         '<div class="sub">'+sub+'</div></div>';
     }
     var html = '';
-    html += tile('hero span6','Views no mÃƒÂªs',
+    html += tile('hero span6','Views no mês',
       '<span data-tick="'+viewsCur+'" data-fmt="compact">0</span>'+delta(viewsCur,viewsPrev,true),
-      'soma dos posts do mÃƒÂªs Ã‚Â· anterior: '+fmtCompact(viewsPrev));
-    html += tile('span2','Postados no mÃƒÂªs',
+      'soma dos posts do mês · anterior: '+fmtCompact(viewsPrev));
+    html += tile('span2','Postados no mês',
       '<span data-tick="'+postedCur.length+'" data-fmt="int">0</span>'+delta(postedCur.length,postedPrev.length,false),
       'anterior: '+postedPrev.length);
-    html += tile('span2','Engajamento mÃƒÂ©dio',
-      engAvg==null ? 'Ã¢â‚¬â€' : '<span data-tick="'+engAvg.toFixed(2)+'" data-fmt="pct">0</span>',
-      'postados com mÃƒÂ©tricas ('+engAll.length+')');
-    html += tile('span2','Em produÃƒÂ§ÃƒÂ£o',
+    html += tile('span2','Engajamento médio',
+      engAvg==null ? '—' : '<span data-tick="'+engAvg.toFixed(2)+'" data-fmt="pct">0</span>',
+      'postados com métricas ('+engAll.length+')');
+    html += tile('span2','Em produção',
       '<span data-tick="'+inPipe+'" data-fmt="int">0</span>',
       ideias+' no banco de ideias');
     $('#tiles').innerHTML = html;
@@ -1001,7 +1002,7 @@
   /* ---------- metas da semana ---------- */
   function renderGoals(){
     var wb = weekBounds();
-    $('#goalsMeta').textContent = fmtBR(wb.start) + ' Ã¢â‚¬â€œ ' + fmtBR(wb.end);
+    $('#goalsMeta').textContent = fmtBR(wb.start) + ' – ' + fmtBR(wb.end);
     var posted = state.items.filter(function(i){
       return i.status==='postado' && i.dataPostagem && i.dataPostagem>=wb.start && i.dataPostagem<=wb.end;
     });
@@ -1018,7 +1019,7 @@
       var alvo = state.goals[k];
       var n = k==='Total' ? posted.length : posted.filter(function(i){ return i.formato===k; }).length;
       var pct = Math.min(100, Math.round(n/alvo*100));
-      // streak: semanas consecutivas (contando esta, se jÃƒÂ¡ batida) com alvo cumprido
+      // streak: semanas consecutivas (contando esta, se já batida) com alvo cumprido
       var streak = 0;
       (function(){
         function cnt(s,e){
@@ -1034,10 +1035,10 @@
           else break;
         }
       })();
-      var streakTxt = ' Ã‚Â· sequÃƒÂªncia '+streak+(streak===1?' semana':' semanas');
+      var streakTxt = ' · sequência '+streak+(streak===1?' semana':' semanas');
       var sub = n>=alvo
-        ? '<span class="hit">meta batida Ã¢Å“â€œ'+(n>alvo?' ('+(n-alvo)+' acima)':'')+'</span>'+streakTxt
-        : 'faltam '+(alvo-n)+(wb.daysLeft===0 ? ' Ã‚Â· ÃƒÂºltimo dia' : ' Ã‚Â· '+wb.daysLeft+(wb.daysLeft===1?' dia':' dias'))+streakTxt;
+        ? '<span class="hit">meta batida ✓'+(n>alvo?' ('+(n-alvo)+' acima)':'')+'</span>'+streakTxt
+        : 'faltam '+(alvo-n)+(wb.daysLeft===0 ? ' · último dia' : ' · '+wb.daysLeft+(wb.daysLeft===1?' dia':' dias'))+streakTxt;
       return '<div class="goal">'+
         '<div class="goal-top"><span class="fmt">'+esc(k==='Total'?'Total':k)+'</span>'+
         '<span class="goal-count"><b data-tick="'+n+'" data-fmt="int">0</b><span class="of">/'+alvo+'</span></span></div>'+
@@ -1066,14 +1067,14 @@
       return (b.views||0)-(a.views||0);
     }).slice(0,3);
     if(!rows.length){
-      host.innerHTML = '<div class="empty">Preencha salvamentos e compartilhamentos dos posts publicados Ã¢â‚¬â€<br>os campeÃƒÂµes aparecem aqui com o gancho, pra vocÃƒÂª replicar o que dÃƒÂ¡ certo.</div>';
+      host.innerHTML = '<div class="empty">Preencha salvamentos e compartilhamentos dos posts publicados —<br>os campeões aparecem aqui com o gancho, pra você replicar o que dá certo.</div>';
       return;
     }
     host.innerHTML = rows.map(function(i, idx){
       return '<li data-id="'+i.id+'" tabindex="0" role="button" aria-label="Editar '+esc(i.titulo)+'">'+
         '<span class="rank">0'+(idx+1)+'</span>'+
         '<span class="t"><b>'+esc(i.titulo)+'</b>'+
-        '<small>'+(i.gancho ? 'Ã¢â‚¬Å“'+esc(i.gancho)+'Ã¢â‚¬Â' : 'sem gancho registrado')+'</small></span>'+
+        '<small>'+(i.gancho ? '“'+esc(i.gancho)+'”' : 'sem gancho registrado')+'</small></span>'+
         '<span class="sig">'+fmtNum(i.salvamentos||0)+' salvos<br>'+fmtNum(i.compartilhamentos||0)+' compart.</span>'+
       '</li>';
     }).join('');
@@ -1096,7 +1097,7 @@
     STAGES.forEach(function(s){
       if(s.id==='descartado' || !counts[s.id]) return;
       bar += '<button style="flex-grow:'+counts[s.id]+';background:var('+s.ramp+')" '+
-        'title="'+s.n+' '+esc(s.label)+' Ã‚Â· '+counts[s.id]+'" aria-label="'+esc(s.label)+': '+counts[s.id]+' Ã¢â‚¬â€ abrir pipeline"></button>';
+        'title="'+s.n+' '+esc(s.label)+' · '+counts[s.id]+'" aria-label="'+esc(s.label)+': '+counts[s.id]+' — abrir pipeline"></button>';
     });
     $('#distbar').innerHTML = bar;
     $('#distbar').style.display = bar ? '' : 'none';
@@ -1106,7 +1107,7 @@
       if(s.id==='descartado') return;
       leg += '<button data-st="'+s.id+'" aria-label="Abrir pipeline em '+esc(s.label)+'">'+
         '<span class="dot" style="background:var('+s.ramp+')"></span>'+s.n+' '+esc(s.label)+
-        ' Ã‚Â· <span class="cnt">'+counts[s.id]+'</span></button>';
+        ' · <span class="cnt">'+counts[s.id]+'</span></button>';
     });
     $('#dist').innerHTML = leg;
     $all('#dist button, #distbar button').forEach(function(b){
@@ -1123,15 +1124,15 @@
     }).sort(function(a,b){ return a.dataPrevista<b.dataPrevista?-1:1; });
     $('#agendaMeta').textContent = rows.length ? rows.length+' agendados' : '';
     if(!rows.length){
-      $('#agenda').innerHTML = '<div class="empty">Nada agendado pros prÃƒÂ³ximos 7 dias.<br>Puxe algo do banco de ideias.</div>';
+      $('#agenda').innerHTML = '<div class="empty">Nada agendado pros próximos 7 dias.<br>Puxe algo do banco de ideias.</div>';
       return;
     }
-    var DOW = ['dom','seg','ter','qua','qui','sex','sÃƒÂ¡b'];
+    var DOW = ['dom','seg','ter','qua','qui','sex','sáb'];
     $('#agenda').innerHTML = rows.map(function(i){
       var d = parseISO(i.dataPrevista);
       return '<li data-id="'+i.id+'" tabindex="0" role="button" aria-label="Editar '+esc(i.titulo)+'">'+
         '<span class="dbadge"><b>'+d.getDate()+'</b><span>'+DOW[d.getDay()]+'</span></span>'+
-        '<span class="t"><b>'+esc(i.titulo)+'</b><small>'+esc((i.formato||'').toUpperCase())+(i.pilar?' Ã‚Â· '+esc(i.pilar):'')+'</small></span>'+
+        '<span class="t"><b>'+esc(i.titulo)+'</b><small>'+esc((i.formato||'').toUpperCase())+(i.pilar?' · '+esc(i.pilar):'')+'</small></span>'+
         stagePill(i.status)+
       '</li>';
     }).join('');
@@ -1143,7 +1144,7 @@
     });
   }
 
-  /* ---------- grÃƒÂ¡fico (colunas, sÃƒÂ©rie ÃƒÂºnica) ---------- */
+  /* ---------- gráfico (colunas, série única) ---------- */
   function renderChart(){
     var host = $('#chart'), tip = $('#chartTip');
     var data = state.items
@@ -1151,7 +1152,7 @@
       .sort(function(a,b){ return (a.dataPostagem||'')<(b.dataPostagem||'')?-1:1; })
       .slice(-10);
     if(!data.length){
-      host.innerHTML = '<div class="empty">Sem posts com mÃƒÂ©tricas ainda.<br>Quando um post virar '+STAGE_BY_ID.postado.n+' Ã‚Â· Postado e ganhar views, o grÃƒÂ¡fico acende aqui.</div>';
+      host.innerHTML = '<div class="empty">Sem posts com métricas ainda.<br>Quando um post virar '+STAGE_BY_ID.postado.n+' · Postado e ganhar views, o gráfico acende aqui.</div>';
       return;
     }
     var W = Math.max(280, host.clientWidth || $('#chartWrap').clientWidth - 24);
@@ -1194,7 +1195,7 @@
       if(i%labelEvery===0){
         svg += '<text x="'+(padL+band*i+band/2)+'" y="'+(H-11)+'" text-anchor="middle" style="font:500 10.5px var(--mono);fill:var(--text-3);font-variant-numeric:tabular-nums">'+fmtBR(d.dataPostagem)+'</text>';
       }
-      svg += '<rect class="hit" data-i="'+i+'" tabindex="0" role="button" aria-label="'+esc(d.titulo)+' Ã¢â‚¬â€ '+fmtNum(d.views)+' views em '+fmtBRfull(d.dataPostagem)+'" x="'+(padL+band*i)+'" y="'+padT+'" width="'+band+'" height="'+plotH+'" fill="transparent" style="cursor:pointer"/>';
+      svg += '<rect class="hit" data-i="'+i+'" tabindex="0" role="button" aria-label="'+esc(d.titulo)+' — '+fmtNum(d.views)+' views em '+fmtBRfull(d.dataPostagem)+'" x="'+(padL+band*i)+'" y="'+padT+'" width="'+band+'" height="'+plotH+'" fill="transparent" style="cursor:pointer"/>';
     });
     svg += '</svg>';
     host.innerHTML = svg;
@@ -1205,9 +1206,9 @@
       function show(evt){
         bars.forEach(function(b,bi){ b.classList.toggle('hot', bi===i); });
         var e = engagement(d);
-        tip.innerHTML = '<span class="d">'+fmtBRfull(d.dataPostagem)+' Ã‚Â· '+esc((d.formato||'').toUpperCase())+'</span>'+
+        tip.innerHTML = '<span class="d">'+fmtBRfull(d.dataPostagem)+' · '+esc((d.formato||'').toUpperCase())+'</span>'+
           '<span class="t">'+esc(d.titulo)+'</span>'+
-          '<span class="v">'+fmtNum(d.views)+' views Ã‚Â· '+fmtEng(e)+'</span>';
+          '<span class="v">'+fmtNum(d.views)+' views · '+fmtEng(e)+'</span>';
         tip.style.display = 'block';
         var wrap = $('#chartWrap').getBoundingClientRect();
         var x = evt.clientX - wrap.left + 12, yv = evt.clientY - wrap.top + 12;
@@ -1238,9 +1239,9 @@
         var late = i.dataPrevista && i.dataPrevista < todayISO() && s.id!=='postado' && s.id!=='descartado';
         var foot = '';
         if(s.id==='postado'){
-          foot = '<span>'+(i.dataPostagem?fmtBR(i.dataPostagem):'')+'</span><span>'+(i.views?fmtCompact(i.views)+' views':'sem mÃƒÂ©tricas')+'</span>';
+          foot = '<span>'+(i.dataPostagem?fmtBR(i.dataPostagem):'')+'</span><span>'+(i.views?fmtCompact(i.views)+' views':'sem métricas')+'</span>';
         } else {
-          foot = '<span class="'+(late?'late':'')+'">'+(i.dataPrevista?(late?'Ã¢â€“Â² ':'')+fmtBR(i.dataPrevista):'sem data')+'</span>'+
+          foot = '<span class="'+(late?'late':'')+'">'+(i.dataPrevista?(late?'▲ ':'')+fmtBR(i.dataPrevista):'sem data')+'</span>'+
                  (i.responsavel?'<span>'+esc(i.responsavel)+'</span>':'');
         }
         return '<article class="kcard" draggable="true" data-id="'+i.id+'" tabindex="0" role="button" '+
@@ -1252,7 +1253,7 @@
       }).join('');
       return '<div class="col" data-st="'+s.id+'">'+
         '<div class="col-h"><span class="ghost">'+s.n+'</span><span class="name">'+esc(s.label)+'</span>'+
-        '<span class="cnt">'+cards.length+'</span><button class="add" data-st="'+s.id+'" aria-label="Adicionar em '+esc(s.label)+'">Ã¯Â¼â€¹</button></div>'+
+        '<span class="cnt">'+cards.length+'</span><button class="add" data-st="'+s.id+'" aria-label="Adicionar em '+esc(s.label)+'">＋</button></div>'+
         '<div class="col-body">'+body+'</div>'+
       '</div>';
     }).join('');
@@ -1282,12 +1283,12 @@
         it.status = to;
         if(to==='postado' && !it.dataPostagem){
           it.dataPostagem = todayISO();
-          save('Movido pra '+STAGE_BY_ID.postado.n+' Ã‚Â· Postado Ã¢â‚¬â€ preencha as mÃƒÂ©tricas em ~48h');
+          save('Movido pra '+STAGE_BY_ID.postado.n+' · Postado — preencha as métricas em ~48h');
           render();
           openModal(it);
           return;
         }
-        save('Movido pra '+STAGE_BY_ID[to].n+' Ã‚Â· '+STAGE_BY_ID[to].label);
+        save('Movido pra '+STAGE_BY_ID[to].n+' · '+STAGE_BY_ID[to].label);
         render();
       });
     });
@@ -1299,15 +1300,15 @@
     });
   }
 
-  /* ---------- calendÃƒÂ¡rio ---------- */
+  /* ---------- calendário ---------- */
   var calDate = new Date();
-  calDate.setDate(1); // navegaÃƒÂ§ÃƒÂ£o de mÃƒÂªs segura (evita overflow em dias 29-31)
+  calDate.setDate(1); // navegação de mês segura (evita overflow em dias 29-31)
   function itemCalDate(i){
     return i.status==='postado' ? (i.dataPostagem || i.dataPrevista) : i.dataPrevista;
   }
   function renderCalendar(){
     var y = calDate.getFullYear(), m = calDate.getMonth();
-    var MESES = ['janeiro','fevereiro','marÃƒÂ§o','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+    var MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
     $('#calTitle').textContent = MESES[m] + ' ' + y;
     var first = new Date(y,m,1);
     var start = new Date(y,m,1-first.getDay());
@@ -1319,7 +1320,7 @@
       if(!d) return;
       (byDay[d] = byDay[d] || []).push(i);
     });
-    var html = ['dom','seg','ter','qua','qui','sex','sÃƒÂ¡b'].map(function(d){ return '<div class="cal-dow">'+d+'</div>'; }).join('');
+    var html = ['dom','seg','ter','qua','qui','sex','sáb'].map(function(d){ return '<div class="cal-dow">'+d+'</div>'; }).join('');
     for(var w=0;w<6;w++){
       for(var dd=0;dd<7;dd++){
         var cur = new Date(start.getFullYear(), start.getMonth(), start.getDate() + w*7 + dd);
@@ -1332,7 +1333,7 @@
             '<span class="dot" style="background:var('+s.ramp+')"></span><span class="txt">'+esc(i.titulo)+'</span></button>';
         }).join('');
         if(evs.length>3) evHtml += '<span class="cal-more">+'+(evs.length-3)+'</span>';
-        html += '<div class="cal-cell'+(out?' out':'')+(iso===t?' today':'')+'" data-date="'+iso+'" tabindex="0" role="button" aria-label="Agendar conteÃƒÂºdo em '+fmtBRfull(iso)+'">'+
+        html += '<div class="cal-cell'+(out?' out':'')+(iso===t?' today':'')+'" data-date="'+iso+'" tabindex="0" role="button" aria-label="Agendar conteúdo em '+fmtBRfull(iso)+'">'+
           '<span class="dn">'+cur.getDate()+'</span>'+evHtml+'</div>';
       }
     }
@@ -1343,7 +1344,7 @@
     $all('.cal-cell').forEach(function(c){
       c.addEventListener('click', function(){ openModal(null, {dataPrevista:c.dataset.date, status:'ideia'}); });
       c.addEventListener('keydown', function(e){
-        if(e.target!==c) return; // Enter num .cal-ev interno ativa o prÃƒÂ³prio botÃƒÂ£o
+        if(e.target!==c) return; // Enter num .cal-ev interno ativa o próprio botão
         if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openModal(null, {dataPrevista:c.dataset.date, status:'ideia'}); }
       });
     });
@@ -1356,7 +1357,7 @@
   var tbl = { q:'', formato:'', pilar:'', sort:'dataPostagem', dir:-1 };
   var COLS = [
     {k:'dataPostagem', l:'Data'},
-    {k:'titulo', l:'ConteÃƒÂºdo'},
+    {k:'titulo', l:'Conteúdo'},
     {k:'formato', l:'Formato'},
     {k:'pilar', l:'Pilar'},
     {k:'views', l:'Views', num:true},
@@ -1370,7 +1371,7 @@
   function renderTable(){
     $('#tblHead').innerHTML = COLS.map(function(c){
       var active = tbl.sort===c.k;
-      var arr = active ? '<span class="arr">'+(tbl.dir>0?'Ã¢â€“Â²':'Ã¢â€“Â¼')+'</span>' : '';
+      var arr = active ? '<span class="arr">'+(tbl.dir>0?'▲':'▼')+'</span>' : '';
       var inner = c.k==='link' ? c.l : '<button type="button" class="thbtn" data-k="'+c.k+'">'+c.l+arr+'</button>';
       return '<th class="'+(c.num?'r':'')+'"'+(active?' aria-sort="'+(tbl.dir>0?'ascending':'descending')+'"':'')+'>'+inner+'</th>';
     }).join('');
@@ -1412,12 +1413,12 @@
     $('#tblBody').innerHTML = rows.map(function(i){
       var e = engagement(i);
       var fillPct = (e!=null && best) ? Math.max(4, Math.round(e/best*100)) : 0;
-      var link = i.link ? '<a href="'+esc(i.link)+'" target="_blank" rel="noopener" aria-label="Abrir post">Ã¢â€ â€”</a>' : '<span style="color:var(--text-3)">Ã¢â‚¬â€</span>';
-      var engHtml = e==null ? 'Ã¢â‚¬â€' :
+      var link = i.link ? '<a href="'+esc(i.link)+'" target="_blank" rel="noopener" aria-label="Abrir post">↗</a>' : '<span style="color:var(--text-3)">—</span>';
+      var engHtml = e==null ? '—' :
         '<span class="engcell"><span class="v'+(e===best?' best':'')+'">'+fmtEng(e)+'</span>'+
         '<span class="engtrack"><span class="engfill" style="width:'+fillPct+'%;display:block"></span></span></span>';
       return '<tr data-id="'+i.id+'" tabindex="0" aria-label="Editar '+esc(i.titulo)+'">'+
-        '<td class="num" style="white-space:nowrap">'+ (i.dataPostagem?fmtBRfull(i.dataPostagem):'Ã¢â‚¬â€') +'</td>'+
+        '<td class="num" style="white-space:nowrap">'+ (i.dataPostagem?fmtBRfull(i.dataPostagem):'—') +'</td>'+
         '<td class="title-cell"><span class="t">'+esc(i.titulo)+'</span></td>'+
         '<td>'+fmtChip(i.formato)+'</td>'+
         '<td>'+pilarTag(i.pilar)+'</td>'+
@@ -1448,11 +1449,11 @@
   /* ---------- modal ---------- */
   var editingId = null;
   function fillSelect(sel, opts, withEmpty){
-    sel.innerHTML = (withEmpty?'<option value="">Ã¢â‚¬â€</option>':'') + opts.map(function(o){
+    sel.innerHTML = (withEmpty?'<option value="">—</option>':'') + opts.map(function(o){
       return '<option value="'+esc(o.v)+'">'+esc(o.l)+'</option>';
     }).join('');
   }
-  fillSelect($('#fStatus'), STAGES.map(function(s){ return {v:s.id, l:s.n+' Ã‚Â· '+s.label}; }), false);
+  fillSelect($('#fStatus'), STAGES.map(function(s){ return {v:s.id, l:s.n+' · '+s.label}; }), false);
   fillSelect($('#fFormatoM'), FORMATOS.map(function(f){ return {v:f,l:f}; }), true);
   fillSelect($('#fPilarM'), PILARES.map(function(p){ return {v:p,l:p}; }), true);
   fillSelect($('#fFormato'), FORMATOS.map(function(f){ return {v:f,l:'Formato: '+f}; }), false);
@@ -1470,8 +1471,8 @@
     var views = numVal('#fViews');
     var sum = (numVal('#fCurtidas')||0)+(numVal('#fComentarios')||0)+(numVal('#fCompart')||0)+(numVal('#fSalvos')||0);
     $('#engPreview').innerHTML = views
-      ? 'engajamento <b>'+fmtEng(sum/views*100)+'</b> Ã¢â‚¬â€ (curtidas + comentÃƒÂ¡rios + compart. + salvos) ÃƒÂ· views'
-      : 'engajamento <b>Ã¢â‚¬â€</b> Ã‚Â· preencha as views';
+      ? 'engajamento <b>'+fmtEng(sum/views*100)+'</b> — (curtidas + comentários + compart. + salvos) ÷ views'
+      : 'engajamento <b>—</b> · preencha as views';
   }
   ['#fViews','#fCurtidas','#fComentarios','#fCompart','#fSalvos'].forEach(function(id){
     $(id).addEventListener('input', updateEngPreview);
@@ -1479,7 +1480,7 @@
 
   function openModal(item, presets){
     editingId = item ? item.id : null;
-    $('#mTitle').textContent = item ? 'Editar conteÃƒÂºdo' : 'Novo conteÃƒÂºdo';
+    $('#mTitle').textContent = item ? 'Editar conteúdo' : 'Novo conteúdo';
     $('#mDelete').hidden = !item;
     var d = item || Object.assign({
       titulo:'', gancho:'', status:'ideia', formato:'', pilar:'', responsavel:'',
@@ -1543,10 +1544,10 @@
   $('#mDelete').addEventListener('click', function(){
     var it = byId(editingId);
     if(!it) return;
-    askConfirm('Excluir "'+it.titulo+'"? Essa aÃƒÂ§ÃƒÂ£o nÃƒÂ£o tem desfazer.', function(){
+    askConfirm('Excluir "'+it.titulo+'"? Essa ação não tem desfazer.', function(){
       state.items = state.items.filter(function(i){ return i.id!==editingId; });
       $('#modal').close();
-      save('ExcluÃƒÂ­do');
+      save('Excluído');
       render();
     });
   });
@@ -1574,7 +1575,7 @@
   $('#cNo').addEventListener('click', function(){ confirmCb = null; $('#confirmDlg').close(); });
   $('#cClose').addEventListener('click', function(){ confirmCb = null; $('#confirmDlg').close(); });
 
-  /* ---------- topo: aÃƒÂ§ÃƒÂµes ---------- */
+  /* ---------- topo: ações ---------- */
   $('#btnNew').addEventListener('click', function(){ openModal(null); });
   var menuBtn = $('#menuBtn'), menuPop = $('#menuPop');
   menuBtn.addEventListener('click', function(e){
@@ -1631,7 +1632,7 @@
           render();
         });
       }catch(err){
-        showToast('Arquivo invÃƒÂ¡lido Ã¢â‚¬â€ exporte um backup daqui pra ver o formato.');
+        showToast('Arquivo inválido — exporte um backup daqui pra ver o formato.');
       }
     };
     reader.readAsText(f);
